@@ -1,0 +1,17 @@
+{
+  "name": "kuddle",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:kunatastic/Fitness-slot-booking-application.git",
+  "author": "Kunal Kumar Jha <kunatastic@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@types/node": "^18.6.3",
+    "nodemon": "^2.0.19",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.7.4"
+  },
+  "scripts": {
+    "start": "nodemon index.ts"
+  }
+}

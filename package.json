@@ -15,9 +15,11 @@
   "scripts": {
     "devStart": "nodemon src/index.ts",
     "start": "node dist/index.js",
-    "build": "tsc"
+    "build": "tsc",
+    "add": "git add dist"
   },
   "pre-commit": [
-    "build"
+    "build",
+    "add"
   ]
 }

@@ -33,7 +33,12 @@ function main() {
   Gym.bookAClass(user5);
   Gym.bookAClass(user6);
 
-  Gym.cancelAUser(user5);
+  Gym.cancelAUser(user5); // user-5 cannot be deleted as 30 min difference is not present
+
+  // Additional testcases
+
+  // 1. If the user is not present in either of the waiting or enrolled list
+  Dance.cancelAUser(user6);
 }
 
 main();

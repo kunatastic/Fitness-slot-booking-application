@@ -4,9 +4,9 @@ function main() {
   console.log("Welcome to Fitness Slot Booking");
 
   // 1. Create 3 new classes
-  const Yoga: Fitness = new Fitness("Yoga", "RANDOM FOR NOW", 2);
-  const Gym: Fitness = new Fitness("Gym", "RANDOM FOR NOW", 3);
-  const Dance: Fitness = new Fitness("Dance", "RANDOM", 3);
+  const Yoga: Fitness = new Fitness("Yoga", new Date("2022-8-16 12:30:00"), 2);
+  const Gym: Fitness = new Fitness("Gym", new Date(), 3);
+  const Dance: Fitness = new Fitness("Dance", new Date("2022-8-16 12:30:00"), 3);
 
   // 2. Create new Members
   const user1: User = new User("User - 1", 20);
@@ -24,6 +24,16 @@ function main() {
 
   Yoga.getEnrolledUser();
   Yoga.getWaitingList(); // user-4 added to waiting list
+
+  Yoga.cancelAUser(user1);
+
+  Yoga.getEnrolledUser();
+  Yoga.getWaitingList(); // user-1 deleted and user-3 added and user-3 deleted from waiting list
+
+  Gym.bookAClass(user5);
+  Gym.bookAClass(user6);
+
+  Gym.cancelAUser(user5);
 }
 
 main();

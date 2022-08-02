@@ -3,9 +3,9 @@ export class Fitness {
   maximumUser: number;
   private waitingList: User[];
   private enrolledUser: User[];
-  startingTime: string;
+  startingTime: Date;
 
-  constructor(name: string, startingTime: string, maximumUser: number) {
+  constructor(name: string, startingTime: Date, maximumUser: number) {
     this.name = name;
     this.startingTime = startingTime;
     this.maximumUser = maximumUser;
@@ -34,32 +34,33 @@ export class Fitness {
     console.table(this.waitingList);
   }
 
-  cancelAEnrolledUser(user: User) {
-    if (!this.checkUserPresentInEnrolledList(user)) return;
+  private cancelAEnrolledUser(user: User) {
+    let currentTime = new Date();
+    currentTime = new Date(currentTime.getTime() + 30 * 60000);
 
-    const currentTime = new Date().toString();
-    // TODO: date comparasion
-    if (currentTime + 30 <= this.startingTime) {
+    if (currentTime <= this.startingTime) {
       // remove the user if he was present. Given that he is present
       this.enrolledUser = this.enrolledUser.filter((current: User) => {
-        current !== user;
+        return current.name !== user.name;
       });
 
       if (this.waitingList.length > 0) {
         this.enrolledUser.push(this.waitingList[0]);
         this.waitingList.shift();
+        console.log("User delete and New user added from waiting list");
+      } else {
+        console.log("User delete and waiting list is empty");
       }
     } else {
       console.log("Cannot be deleted... [30 different ain't there]");
     }
   }
 
-  cancelAWaitingUser(user: User) {
-    if (!this.checkUserPresentInWaitingList(user)) return;
+  private cancelAWaitingUser(user: User) {
+    let currentTime = new Date();
+    currentTime = new Date(currentTime.getTime() + 30 * 60000);
 
-    const currentTime = new Date().toString();
-    // TODO: date comparasion
-    if (currentTime + 30 <= this.startingTime) {
+    if (currentTime <= this.startingTime) {
       // remove the user if he was present. Given that he is present
       this.waitingList = this.waitingList.filter((current: User) => {
         current !== user;
@@ -67,6 +68,19 @@ export class Fitness {
     } else {
       console.log("Cannot be deleted... [30 different ain't there]");
     }
+  }
+
+  cancelAUser(existingUser: User) {
+    if (this.checkUserPresentInEnrolledList(existingUser)) {
+      this.cancelAEnrolledUser(existingUser);
+      return;
+    }
+
+    if (this.checkUserPresentInWaitingList(existingUser)) {
+      this.cancelAWaitingUser(existingUser);
+      return;
+    }
+    console.log("User have not enrolled");
   }
 
   checkUserPresentInEnrolledList(user: User) {
